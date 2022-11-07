@@ -1,8 +1,6 @@
 import Image from "next/image";
 import styles from "../styles/Card.module.css";
 
-import temImage from "../assets/images/placeholder-image.png";
-
 const renderCard = (src, name) => {
   return (
     <div className={styles.container}>
@@ -27,7 +25,6 @@ const renderCard = (src, name) => {
 };
 
 export default function Card({ name, image }) {
-  console.log({ image });
   if (image && /ipfs:\/\//.test(image)) {
     return renderCard(
       `https://ipfs.moralis.io:2053/ipfs/` + image.split("ipfs://")[1],

@@ -36,12 +36,13 @@ a {
   text-decoration: none;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: #1b1919;
-  }
-} */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: #fff !important;
+}
