@@ -2,7 +2,7 @@ import Section from "../components/Section";
 import WalletInfo from "../components/WalletInfo";
 import { constChainConfigs } from "../utils/chainConfigs";
 
-export default function Home() {
+export default function index() {
   return (
     <div className="container">
       <WalletInfo />
