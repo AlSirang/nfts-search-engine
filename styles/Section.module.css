@@ -1,0 +1,30 @@
+.container {
+  padding-bottom: 4rem;
+}
+
+.cardsContainer {
+  display: grid;
+  gap: 20px 10px;
+}
+
+@media (min-width: 300px) {
+  .cardsContainer {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 600px) {
+  .cardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .cardsContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1300px) {
+  .cardsContainer {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

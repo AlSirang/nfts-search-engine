@@ -1,0 +1,10 @@
+.overlayContainer {
+  position: relative;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .overlay-container {
+    width: 100%;
+  }
+}
