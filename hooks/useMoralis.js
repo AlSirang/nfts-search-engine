@@ -53,16 +53,17 @@ export const useMoralis = (chainId) => {
   };
 
   useEffect(() => {
-    account &&
-      chainId &&
+    chainId &&
       (() => {
         if (hasRun.current) return;
+
+        const _wallet = account || "0x1EC5858f161fa17F148626ABcFAC12381F97D34B";
 
         hasRun.current = true;
 
         const options = {
           method: "GET",
-          url: `https://deep-index.moralis.io/api/v2/${account}/nft`,
+          url: `https://deep-index.moralis.io/api/v2/${_wallet}/nft`,
           params: { chain: chainId, format: "decimal", limit: "12" },
           headers: {
             accept: "application/json",
