@@ -28,6 +28,7 @@ body {
   direction: ltr;
   scroll-behavior: smooth;
   overscroll-behavior-y: contain;
+  color: white;
 }
 
 a {
@@ -35,11 +36,7 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -47,4 +44,4 @@ a {
     color: white;
     background: #1b1919;
   }
-}
+} */
