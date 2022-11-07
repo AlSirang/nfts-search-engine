@@ -1,7 +1,12 @@
-import Image from "next/image";
+import clsx from "clsx";
+import Link from "next/link";
 import styles from "../styles/Card.module.css";
+import { getNavigableURL } from "../utils/constants";
 
-const renderCard = (src, name) => {
+const renderCard = (src, otherInfo) => {
+  const { name, contract, tokenId, chainId } = otherInfo;
+
+  const href = `${contract}/${chainId}/${tokenId}`;
   return (
     <div className={styles.container}>
       <picture>
@@ -19,20 +24,20 @@ const renderCard = (src, name) => {
 
       <div className={styles.content}>
         <h5>{name}</h5>
+
+        <div className={styles.relativeContainer}>
+          <div className={styles.absContainer}>
+            <Link href={href} className={clsx(styles.link, "hover-color")}>
+              traverse&nbsp;<span className="fa fa-arrow-right"></span>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default function Card({ name, image }) {
-  if (image && /ipfs:\/\//.test(image)) {
-    return renderCard(
-      `https://ipfs.moralis.io:2053/ipfs/` + image.split("ipfs://")[1],
-      name
-    );
-  }
-
-  if (image && /https:\/\//.test(image)) return renderCard(image, name);
-
-  return null;
+export default function Card(props) {
+  const { name, image } = props;
+  return renderCard(getNavigableURL(image), props);
 }
