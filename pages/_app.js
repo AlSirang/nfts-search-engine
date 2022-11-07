@@ -2,6 +2,8 @@ import Layout from "../components/Layout";
 import { Web3ContextProvider } from "../context";
 import HooksWrapper from "../hooks";
 import "../styles/bootstrap.min.css";
+import "../styles/fontawesome.all.css";
+
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
