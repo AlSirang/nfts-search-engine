@@ -34,6 +34,14 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  transition: all 0.2s;
+}
+
+a.hover-color:hover {
+  --hover-color: rgb(169, 175, 202);
+  border-color: var(--hover-color);
+  color: var(--hover-color);
+  text-decoration: underline;
 }
 
 body,
