@@ -1,12 +1,17 @@
 import Layout from "../components/Layout";
+import { Web3ContextProvider } from "../context";
+import HooksWrapper from "../hooks";
 import "../styles/bootstrap.min.css";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <Web3ContextProvider>
+      <HooksWrapper />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Web3ContextProvider>
   );
 }
 

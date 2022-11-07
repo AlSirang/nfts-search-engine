@@ -1,15 +1,14 @@
 import Section from "../components/Section";
+import WalletInfo from "../components/WalletInfo";
+import { constChainConfigs } from "../utils/chainConfigs";
 
 export default function Home() {
   return (
-    <div className="container ">
-      <Section />
-      <Section />
-      <Section />
-      <Section />
-      <Section />
-      <Section />
-      <Section />
+    <div className="container">
+      <WalletInfo />
+      {constChainConfigs.map(({ chainName, chainId }) => (
+        <Section key={chainId} chainId={chainId} chainName={chainName} />
+      ))}
     </div>
   );
 }

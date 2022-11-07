@@ -3,6 +3,7 @@ import Meta from "./Meta";
 import styles from "../styles/Navbar.module.css";
 import Link from "next/link";
 import clsx from "clsx";
+import WalletButton from "./WalletButton";
 
 export default function Navbar() {
   return (
@@ -20,9 +21,7 @@ export default function Navbar() {
               <span className={clsx(styles.link, styles.subHeading)}>logo</span>
             </Link>
 
-            <span className={clsx(styles.link, styles.subHeading)}>
-              Connect Wallet
-            </span>
+            <WalletButton />
           </div>
         </div>
       </header>
