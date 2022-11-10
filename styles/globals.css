@@ -54,3 +54,11 @@ h6,
 p {
   color: #fff !important;
 }
+
+.h5-mb0 h5 {
+  margin-bottom: 0;
+}
+
+.h5-mb0 p {
+  margin-bottom: 10px;
+}
