@@ -18,7 +18,8 @@ export const useOnAppLoad = () => {
 export const useOnProviderChange = () => {
   const {
     dispatch,
-    contextState: { provider, web3Instance },
+    getNetworkInfo,
+    contextState: { provider },
   } = Web3UserContext();
 
   useEffect(() => {
@@ -40,6 +41,10 @@ export const useOnProviderChange = () => {
             },
           });
         });
+
+        provider.on("chainChanged", getNetworkInfo);
+
+        getNetworkInfo();
       })();
 
     // eslint-disable-next-line
