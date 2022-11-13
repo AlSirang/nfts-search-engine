@@ -5,6 +5,7 @@ export const TYPES = {
 export const initialState = {
   account: null,
   isWalletConnected: false,
+  connectedChainId: null,
 
   web3Modal: null,
   Web3: null,
