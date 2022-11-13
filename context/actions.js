@@ -2,7 +2,7 @@ import { loadWeb3Packages } from "./utils";
 import { TYPES } from "./reducer";
 
 export default function actions(state, dispatch = () => {}) {
-  const { web3Modal, Web3, isWalletConnected } = state;
+  const { web3Instance, web3Modal, Web3, isWalletConnected } = state;
   // loads web packages
   const initializePackages = async () => {
     const { web3Modal, Web3 } = await loadWeb3Packages();
@@ -55,11 +55,23 @@ export default function actions(state, dispatch = () => {}) {
     });
   };
 
+  const getNetworkInfo = async () => {
+    const chainId = await web3Instance.eth.getChainId();
+
+    dispatch({
+      type: TYPES.UPDATE_STATE,
+      payload: {
+        connectedChainId: chainId,
+      },
+    });
+  };
+
   return {
     // custom actions
     initializePackages,
     walletConnect,
     disconnectWallet,
+    getNetworkInfo,
 
     // navtie state and dispatch
     contextState: state,
