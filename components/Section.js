@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "./Card";
 import { useMoralis } from "../hooks/useMoralis";
+import { Web3UserContext } from "../context";
 
 const renderCards = (data, chainId) => {
   const { result } = data;
@@ -43,34 +44,43 @@ export default React.memo(function Section({ chainId, chainName }) {
   const { isLoading, success, failure, error, response, onCursor } =
     useMoralis(chainId);
   const { cursor } = response;
+
+  const {
+    contextState: { isWalletConnected },
+  } = Web3UserContext();
+
   return (
     <section className="body-box">
-      <div className="products-big-start">
-        <div className="products-start">
-          <div className="product-big-title-box">
-            <h2 className="product-big-title">{chainName}</h2>
-          </div>
+      {isWalletConnected && (
+        <>
+          <div className="products-big-start">
+            <div className="products-start">
+              <div className="product-big-title-box">
+                <h2 className="product-big-title">{chainName}</h2>
+              </div>
 
-          {renderCards(response, chainId)}
-          {!isLoading && failure && <p>{error.message || error}</p>}
-          {isLoading && <h3>Loading...</h3>}
+              {renderCards(response, chainId)}
+              {!isLoading && failure && <p>{error.message || error}</p>}
+              {isLoading && <h3>Loading...</h3>}
 
-          {!isLoading && success && !response.result.length && (
-            <h4>No NFTs found on {chainName}</h4>
-          )}
+              {!isLoading && success && !response.result.length && (
+                <h4>No NFTs found on {chainName}</h4>
+              )}
 
-          {cursor && !isLoading && (
-            <div className="d-flex justify-content-center mt-5 ">
-              <button
-                onClick={onCursor.bind(this, cursor)}
-                className="example-btn"
-              >
-                Load more
-              </button>
+              {cursor && !isLoading && (
+                <div className="d-flex justify-content-center mt-5 ">
+                  <button
+                    onClick={onCursor.bind(this, cursor)}
+                    className="example-btn"
+                  >
+                    Load more
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </section>
   );
 });
