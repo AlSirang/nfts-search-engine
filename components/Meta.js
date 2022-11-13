@@ -14,8 +14,8 @@ const Meta = ({ title, keywords, description }) => {
 };
 
 Meta.defaultProps = {
-  title: "NFTs",
-  keywords: "NFTs, collection, NFTs balance, NFTs wallet",
+  title: "DynaSwap",
+  keywords: "DynaSwap, NFTs swap, NFTs traverse, NFTs, erc721, crypto",
   description: "List all the NFTs in your wallet",
 };
 

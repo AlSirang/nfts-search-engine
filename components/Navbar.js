@@ -1,30 +1,20 @@
-import Meta from "./Meta";
-
-import styles from "../styles/Navbar.module.css";
 import Link from "next/link";
-import clsx from "clsx";
+// import clsx from "clsx";
 import WalletButton from "./WalletButton";
+import logo from "../assets/images/one-logo.svg";
 
 export default function Navbar() {
   return (
-    <>
-      <Meta />
-
-      <div className={styles.overlayImage}>
-        <div className={styles.overlayColor}></div>
-      </div>
-
-      <header className={styles.header}>
-        <div className={styles.banner}>
-          <div className={styles.inner}>
-            <Link href="/">
-              <span className={clsx(styles.link, styles.subHeading)}>logo</span>
-            </Link>
-
-            <WalletButton />
-          </div>
+    <header className="header-big-box">
+      <div className="header-box">
+        <div className="header-logo-box">
+          <picture>
+            <img className="header-logo" src={logo.src} alt="" />
+          </picture>
         </div>
-      </header>
-    </>
+
+        <WalletButton />
+      </div>
+    </header>
   );
 }

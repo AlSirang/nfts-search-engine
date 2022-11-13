@@ -1,8 +1,6 @@
 import React from "react";
-import Card from "./Card";
+import { Card } from "./Card";
 import { useMoralis } from "../hooks/useMoralis";
-
-import styles from "../styles/Section.module.css";
 
 const renderCards = (data, chainId) => {
   const { result } = data;
@@ -27,7 +25,7 @@ const renderCards = (data, chainId) => {
     return <h4>No NFTs found</h4>;
   }
   return (
-    <>
+    <div className="cards-grid">
       {nftsMetaData.map(({ metadata: { name, image }, contract, tokenId }) => (
         <Card
           key={contract + tokenId}
@@ -38,7 +36,7 @@ const renderCards = (data, chainId) => {
           chainId={chainId}
         />
       ))}
-    </>
+    </div>
   );
 };
 
@@ -47,15 +45,18 @@ export default React.memo(function Section({ chainId, chainName }) {
     useMoralis(chainId);
   const { cursor } = response;
   return (
-    <section className={styles.container}>
-      <h3>{chainName}</h3>
-      <hr />
-      <div className={styles.cardsContainer}>
-        {!isLoading && success && renderCards(response, chainId)}
-        {!isLoading && failure && <p>{error.message || error}</p>}
-        {isLoading && <h3>Loading...</h3>}
-      </div>
+    <section className="body-box">
+      <div class="products-big-start">
+        <div class="products-start">
+          <div class="product-big-title-box">
+            <h2 class="product-big-title">{chainName}</h2>
+          </div>
 
+          {!isLoading && success && renderCards(response, chainId)}
+          {!isLoading && failure && <p>{error.message || error}</p>}
+          {isLoading && <h3>Loading...</h3>}
+        </div>
+      </div>
       {/* {cursor && (
         <div className="d-flex justify-content-center mt-5">
           <button
