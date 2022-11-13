@@ -1,3 +1,5 @@
+import { chainIdToInfo } from "../utils/chainConfigs";
+
 // dynamic import to reduce bundle size
 export const loadWeb3Packages = async () => {
   let Web3Modal = import(
@@ -50,4 +52,23 @@ export const loadWeb3Packages = async () => {
   });
 
   return { web3Modal, Web3 };
+};
+
+export const switchNetwork = async (provider, chainId) => {
+  if (!provider) return;
+  try {
+    await provider.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId }],
+    });
+  } catch (err) {
+    // if no chain found request to add
+    if (err.code === 4902 || /Unrecognized chain ID/.test(err.message || err))
+      return await provider.request({
+        method: "wallet_addEthereumChain",
+        params: [chainIdToInfo[chainId].configs],
+      });
+
+    console.log("switchNetwork", err);
+  }
 };
