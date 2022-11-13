@@ -5,6 +5,7 @@ import "../styles/bootstrap.min.css";
 import "../styles/fontawesome.all.css";
 
 import "../styles/globals.css";
+import "../styles/overrides.css";
 
 function MyApp({ Component, pageProps }) {
   return (

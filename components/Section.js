@@ -19,11 +19,10 @@ const renderCards = (data, chainId) => {
   );
 
   nftsMetaData = nftsMetaData.filter(
-    ({ contractType }) => contractType === "ERC721"
+    ({ contractType, metadata }) =>
+      contractType === "ERC721" && Boolean(metadata)
   );
-  if (!nftsMetaData.length) {
-    return <h4>No NFTs found</h4>;
-  }
+
   return (
     <div className="cards-grid">
       {nftsMetaData.map(({ metadata: { name, image }, contract, tokenId }) => (
@@ -52,21 +51,26 @@ export default React.memo(function Section({ chainId, chainName }) {
             <h2 className="product-big-title">{chainName}</h2>
           </div>
 
-          {!isLoading && success && renderCards(response, chainId)}
+          {renderCards(response, chainId)}
           {!isLoading && failure && <p>{error.message || error}</p>}
           {isLoading && <h3>Loading...</h3>}
+
+          {!isLoading && success && !response.result.length && (
+            <h4>No NFTs found on {chainName}</h4>
+          )}
+
+          {cursor && !isLoading && (
+            <div className="d-flex justify-content-center mt-5 ">
+              <button
+                onClick={onCursor.bind(this, cursor)}
+                className="example-btn"
+              >
+                Load more
+              </button>
+            </div>
+          )}
         </div>
       </div>
-      {cursor && (
-        <div className="d-flex justify-content-center mt-5">
-          <button
-            className="btn btn-secondary"
-            onClick={onCursor.bind(this, cursor)}
-          >
-            load more
-          </button>
-        </div>
-      )}
     </section>
   );
 });

@@ -25,37 +25,16 @@ export const useMoralis = (chainId) => {
     }
   );
 
-  const fetchNFTs = (options) => {
-    setState((p) => ({ ...p, isLoading: true }));
+  const fetchNFTs = async (options) => {
+    const { data } = await axios.request(options);
 
-    axios
-      .request(options)
-      .then(function (_response) {
-        const { data } = _response;
-
-        setState((p) => ({
-          ...p,
-          isLoading: false,
-          success: true,
-          response: data,
-        }));
-      })
-      .catch(function (error) {
-        console.error();
-
-        setState((p) => ({
-          ...p,
-          isLoading: false,
-          failure: true,
-          error,
-        }));
-      });
+    return data;
   };
 
   useEffect(() => {
     account &&
       chainId &&
-      (() => {
+      (async () => {
         if (hasRun.current) return;
 
         hasRun.current = true;
@@ -70,11 +49,29 @@ export const useMoralis = (chainId) => {
           },
         };
 
-        fetchNFTs(options);
+        setState((p) => ({ ...p, isLoading: true }));
+
+        try {
+          const data = await fetchNFTs(options);
+
+          setState((p) => ({
+            ...p,
+            isLoading: false,
+            success: true,
+            response: data,
+          }));
+        } catch (err) {
+          setState((p) => ({
+            ...p,
+            isLoading: false,
+            failure: true,
+            error: err,
+          }));
+        }
       })();
   }, [account, chainId]);
 
-  const onCursor = (cursor) => {
+  const onCursor = async (cursor) => {
     const options = {
       method: "GET",
       url: `https://deep-index.moralis.io/api/v2/${account}/nft`,
@@ -84,8 +81,36 @@ export const useMoralis = (chainId) => {
         "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
       },
     };
+    setState((p) => ({ ...p, isLoading: true }));
 
-    fetchNFTs(options);
+    try {
+      const data = await fetchNFTs(options);
+
+      setState((prev) => {
+        const { response: _response } = prev;
+
+        const payload = {
+          ..._response,
+          ...data,
+          result: [..._response.result, ...data.result],
+        };
+
+        return {
+          ...prev,
+          isLoading: false,
+          success: true,
+
+          response: payload,
+        };
+      });
+    } catch (err) {
+      setState((p) => ({
+        ...p,
+        isLoading: false,
+        failure: true,
+        error: err,
+      }));
+    }
   };
 
   return { isLoading, success, failure, error, response, onCursor };
