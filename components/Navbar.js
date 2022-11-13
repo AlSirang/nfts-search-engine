@@ -1,5 +1,4 @@
 import Link from "next/link";
-// import clsx from "clsx";
 import WalletButton from "./WalletButton";
 import logo from "../assets/images/one-logo.svg";
 
@@ -8,9 +7,11 @@ export default function Navbar() {
     <header className="header-big-box">
       <div className="header-box">
         <div className="header-logo-box">
-          <picture>
-            <img className="header-logo" src={logo.src} alt="" />
-          </picture>
+          <Link href="/">
+            <picture>
+              <img className="header-logo" src={logo.src} alt="" />
+            </picture>
+          </Link>
         </div>
 
         <WalletButton />
