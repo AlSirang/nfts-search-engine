@@ -8,7 +8,7 @@ export default function WalletInfo() {
   } = Web3UserContext();
   return (
     <>
-      <div class="body-box">
+      <div className="body-box">
         <div className="body-account-info-box">
           <h2 className="name-title">Wallet Information</h2>
           <div className="wallet-flex-box">
@@ -24,7 +24,7 @@ export default function WalletInfo() {
               </>
             )}
 
-            {!isWalletConnected && <hp>Please connect your wallet.</hp>}
+            {!isWalletConnected && <p>Please connect your wallet.</p>}
           </div>
           <button className="example-btn">Follow</button>
         </div>

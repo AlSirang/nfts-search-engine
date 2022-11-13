@@ -46,10 +46,10 @@ export default React.memo(function Section({ chainId, chainName }) {
   const { cursor } = response;
   return (
     <section className="body-box">
-      <div class="products-big-start">
-        <div class="products-start">
-          <div class="product-big-title-box">
-            <h2 class="product-big-title">{chainName}</h2>
+      <div className="products-big-start">
+        <div className="products-start">
+          <div className="product-big-title-box">
+            <h2 className="product-big-title">{chainName}</h2>
           </div>
 
           {!isLoading && success && renderCards(response, chainId)}
@@ -57,7 +57,7 @@ export default React.memo(function Section({ chainId, chainName }) {
           {isLoading && <h3>Loading...</h3>}
         </div>
       </div>
-      {/* {cursor && (
+      {cursor && (
         <div className="d-flex justify-content-center mt-5">
           <button
             className="btn btn-secondary"
@@ -66,7 +66,7 @@ export default React.memo(function Section({ chainId, chainName }) {
             load more
           </button>
         </div>
-      )} */}
+      )}
     </section>
   );
 });
