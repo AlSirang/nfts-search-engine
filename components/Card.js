@@ -46,7 +46,7 @@ export function Card(props) {
           <div className="product-info-box">
             <div className="product-name-boxes">
               <p className="product-name">{name}</p>
-              {/* <p className="product-stock">78 in stock</p> */}
+              <p className="product-stock">NFT Id {tokenId}</p>
             </div>
             <div className="product-time-boxes">
               <div className="pro-traverse-button-box">
