@@ -8,6 +8,7 @@ import Meta from "../../../components/Meta";
 import WalletInfo from "../../../components/WalletInfo";
 import { Web3UserContext } from "../../../context";
 import { switchNetwork } from "../../../context/utils";
+import traverseAbi from "../../../assets/abis/traverse.abi..json";
 
 export default function Page({ nftInfo, isInfoLoaded, reason }) {
   const {
@@ -25,7 +26,13 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
   let imgSrc = getNavigableURL(image);
 
   const {
-    contextState: { account, provider, connectedChainId, isWalletConnected },
+    contextState: {
+      web3Instance,
+      account,
+      provider,
+      connectedChainId,
+      isWalletConnected,
+    },
   } = Web3UserContext();
 
   const isSameChain = parseInt(connectedChainId) === parseInt(chainId);
@@ -33,9 +40,44 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
     String(tokenOwner).toLocaleLowerCase() ===
     String(account).toLocaleLowerCase();
   const sourceChain = chainIdToInfo[chainId].chainName;
+
+  const onTraverse = async () => {
+    const dstChainId = chainIdToInfo[chainId].lzChainId;
+    const contractInstance = new web3Instance.eth.Contract(
+      traverseAbi,
+      contractAddress
+    );
+
+    try {
+      await new Promise((resolve, reject) => {
+        contractInstance.methods
+          .sendFrom(
+            account,
+            dstChainId,
+            account,
+            tokenId,
+            account,
+            account,
+            "0x"
+          )
+          .send({
+            from: account,
+            value: web3Instance.utils.toWei("1", "ether"),
+          })
+          .once("transactionHash", function (txHash) {
+            console.log(txHash);
+          })
+          .once("receipt", async (receipt) => {
+            resolve(receipt);
+          })
+          .on("error", reject);
+      });
+    } catch (err) {}
+  };
   return (
     <>
       <Meta title={name} description={description} />
+
       <section className="pb-5">
         <div className="pb-3">
           <WalletInfo />
@@ -92,8 +134,13 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
                     </div>
 
                     <div className="mt-4">
-                      {isSameChain && isOwner && (
-                        <button className=" example-btn w-100">Traverse</button>
+                      {isSameChain && (
+                        <button
+                          onClick={onTraverse}
+                          className=" example-btn w-100"
+                        >
+                          Traverse
+                        </button>
                       )}
 
                       {isWalletConnected && !isSameChain && (

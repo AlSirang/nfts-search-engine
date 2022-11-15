@@ -23,6 +23,7 @@ export const chainConfigs = [
 
 export const chainIdToInfo = {
   "0x1": {
+    lzChainId: 101,
     rpcURL: "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
     blockExplorer: "https://etherscan.io",
     chainName: "Ethereum",
@@ -52,6 +53,7 @@ export const chainIdToInfo = {
     },
   },
   "0x89": {
+    lzChainId: 109,
     rpcURL: "https://polygon-rpc.com",
     blockExplorer: "https://polygonscan.com",
     chainName: "Polygon",
@@ -68,6 +70,7 @@ export const chainIdToInfo = {
     },
   },
   "0x38": {
+    lzChainId: 102,
     rpcURL: "https://bsc-dataseed.binance.org",
     blockExplorer: "https://bscscan.com",
     chainName: "BSC",
@@ -84,6 +87,7 @@ export const chainIdToInfo = {
     },
   },
   "0xa86a": {
+    lzChainId: 106,
     rpcURL: "https://api.avax.network/ext/bc/C/rpc",
     blockExplorer: "https://snowtrace.io",
     chainName: "Avalanche",
@@ -100,6 +104,7 @@ export const chainIdToInfo = {
     },
   },
   "0xfa": {
+    lzChainId: 112,
     rpcURL: "https://rpc.ftm.tools/",
     blockExplorer: "https://ftmscan.com",
     chainName: "Fantom",
