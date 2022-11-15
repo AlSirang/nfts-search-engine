@@ -45,8 +45,8 @@ export function Card(props) {
           </div>
           <div className="product-info-box">
             <div className="product-name-boxes">
-              <p className="product-name">CloneF #1108</p>
-              <p className="product-stock">78 in stock</p>
+              <p className="product-name">{name}</p>
+              {/* <p className="product-stock">78 in stock</p> */}
             </div>
             <div className="product-time-boxes">
               <div className="pro-traverse-button-box">
@@ -54,13 +54,13 @@ export function Card(props) {
                   <span className="pro-traverse-button-text">Traverse</span>
                 </Link>
               </div>
-              <div className="pro-time-box">
+              {/* <div className="pro-time-box">
                 <picture>
                   <img className="pro-time-icon" src={timeIcon.src} alt="" />
                 </picture>
 
                 <span className="pro-time-text">2 hours left</span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
