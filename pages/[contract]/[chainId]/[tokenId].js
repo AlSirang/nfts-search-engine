@@ -170,7 +170,7 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
                     </div>
 
                     <div className="mt-4">
-                      {isSameChain && !isOwner && (
+                      {isSameChain && isOwner && (
                         <button
                           onClick={onTraverse}
                           className=" example-btn w-100"
