@@ -9,6 +9,7 @@ import WalletInfo from "../../../components/WalletInfo";
 import { Web3UserContext } from "../../../context";
 import { switchNetwork } from "../../../context/utils";
 import traverseAbi from "../../../assets/abis/traverse.abi..json";
+import { useRef, useState } from "react";
 
 export default function Page({ nftInfo, isInfoLoaded, reason }) {
   const {
@@ -41,12 +42,23 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
     String(account).toLocaleLowerCase();
   const sourceChain = chainIdToInfo[chainId].chainName;
 
+  const [destChainInfo, setDestChainInfo] = useState(null);
+
+  const setDestChainId = (event) => {
+    const chainId = event.target.value;
+    setDestChainInfo(chainId);
+  };
+
   const onTraverse = async () => {
-    const dstChainId = chainIdToInfo[chainId].lzChainId;
+    if (!destChainInfo) return;
+    const dstChainId = chainIdToInfo[destChainInfo].lzChainId;
     const contractInstance = new web3Instance.eth.Contract(
       traverseAbi,
       contractAddress
     );
+
+    const input = Number(inputValue.current);
+    const payable = input > 0 ? input : 1;
 
     try {
       await new Promise((resolve, reject) => {
@@ -62,7 +74,7 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
           )
           .send({
             from: account,
-            value: web3Instance.utils.toWei("1", "ether"),
+            value: web3Instance.utils.toWei(payable.toString(), "ether"),
           })
           .once("transactionHash", function (txHash) {
             console.log(txHash);
@@ -74,6 +86,18 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
       });
     } catch (err) {}
   };
+
+  const inputValue = useRef("");
+
+  const onInputChange = (event) => {
+    inputValue.current = event.target.value;
+  };
+
+  const optionsLists = chainConfigs.filter(
+    ({ chainId: _chainId }) => _chainId !== chainId
+  );
+  optionsLists.push({ chainId: null, chainName: "Select Chain" });
+
   return (
     <>
       <Meta title={name} description={description} />
@@ -122,19 +146,31 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
                     <div>
                       <h5>Select Destination Chain</h5>
                       <div className="p-2" />
-                      <select className="form-select">
-                        {chainConfigs
-                          .filter(
-                            ({ chainId: _chainId }) => _chainId !== chainId
-                          )
-                          .map(({ chainName, chainId }) => (
-                            <option key={chainId}>{chainName}</option>
-                          ))}
+                      <select
+                        className="form-select"
+                        value={destChainInfo || "Select Chain"}
+                        onChange={setDestChainId}
+                      >
+                        {optionsLists.map(({ chainName, chainId }) => (
+                          <option key={chainId} value={chainId}>
+                            {chainName}
+                          </option>
+                        ))}
                       </select>
+
+                      <div class="form-group">
+                        <label for="usr">Amount</label>
+                        <input
+                          type="number"
+                          min="0"
+                          class="form-control"
+                          onChange={onInputChange}
+                        />
+                      </div>
                     </div>
 
                     <div className="mt-4">
-                      {isSameChain && isOwner && (
+                      {isSameChain && !isOwner && (
                         <button
                           onClick={onTraverse}
                           className=" example-btn w-100"
