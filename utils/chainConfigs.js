@@ -19,6 +19,10 @@ export const chainConfigs = [
     chainName: "Polygon",
     chainId: "0x89",
   },
+  {
+    chainName: "Avalanche Testnet",
+    chainId: "0xa869",
+  },
 ];
 
 export const chainIdToInfo = {
@@ -118,6 +122,25 @@ export const chainIdToInfo = {
       },
       rpcUrls: ["https://rpcapi.fantom.network/"],
       blockExplorerUrls: ["https://ftmscan.com/"],
+    },
+  },
+
+  /************************* TESTNETS *************************/
+  "0xa869": {
+    lzChainId: 10106,
+    rpcURL: "https://api.avax-test.network/ext/bc/C/rpc",
+    blockExplorer: "https://testnet.snowtrace.io/",
+    chainName: "Avalanche Testnet",
+    configs: {
+      chainId: "0xa869",
+      chainName: "Avalanche Testnet",
+      nativeCurrency: {
+        name: "AVAX",
+        symbol: "AVAX",
+        decimals: 18,
+      },
+      rpcUrls: ["https://api.avax-test.network/ext/bc/C/rpc"],
+      blockExplorerUrls: ["https://testnet.snowtrace.io"],
     },
   },
 };
