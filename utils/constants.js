@@ -7,3 +7,8 @@ export const getNavigableURL = (urlString) => {
 
   return urlString;
 };
+
+export const APIs_BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://dyna-swap.vercel.app"
+    : "http://localhost:3000";
