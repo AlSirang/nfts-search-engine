@@ -159,8 +159,9 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
                       </select>
 
                       <div class="form-group">
-                        <label for="usr">Amount</label>
+                        <label htmlFor="amount">Amount</label>
                         <input
+                          id="amount"
                           type="number"
                           min="0"
                           class="form-control"
