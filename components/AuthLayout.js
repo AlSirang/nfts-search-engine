@@ -1,22 +1,26 @@
 import { useEffect, useRef } from "react";
 import Router from "next/router";
 
-export const AuthLayout = ({ isAuthenticated, children }) => {
-  const isComponentMounted = useRef(false);
+export const onAuthSuccess = () => {
+  Router.push("/manage-whitelist");
+};
+export const onUnAuthorized = () => {
+  Router.push("/manage-whitelist/auth");
+};
 
-  const onAuthSuccess = () => {
-    Router.push("/manage-whitelist");
-  };
-  const onUnAuthorized = () => {
-    Router.push("/manage-whitelist/auth");
-  };
+export const AuthLayout = ({
+  children,
+  isAuthenticated,
+  isAuthSuccessCheck = true,
+}) => {
+  const isComponentMounted = useRef(false);
 
   useEffect(() => {
     if (isComponentMounted.current) return;
     isComponentMounted.current = true;
-    isAuthenticated && onAuthSuccess();
+    isAuthSuccessCheck && isAuthenticated && onAuthSuccess();
 
     !isAuthenticated && onUnAuthorized();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isAuthSuccessCheck]);
   return <>{children}</>;
 };

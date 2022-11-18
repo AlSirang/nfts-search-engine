@@ -8,7 +8,7 @@ export default function Index(props) {
   const { isAuthenticated } = props;
 
   return (
-    <AuthLayout isAuthenticated={isAuthenticated}>
+    <AuthLayout isAuthenticated={isAuthenticated} isAuthSuccessCheck={false}>
       <section className="body-box">
         <DashboardNav />
         <div style={{ maxWidth: 600, margin: "auto" }}>
@@ -66,6 +66,9 @@ export async function getServerSideProps(context) {
       isAuthenticated = true;
     } catch (err) {}
   }
+
+  console.log({ isAuthenticated });
+
   return {
     props: {
       user,
