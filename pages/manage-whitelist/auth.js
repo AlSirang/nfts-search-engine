@@ -65,7 +65,7 @@ export default function Index(props) {
   useEffect(() => {
     if (isComponentMounted.current) return;
     isComponentMounted.current = true;
-    // isAuthenticated && onAuthSuccess();
+    isAuthenticated && onAuthSuccess();
   }, [isAuthenticated]);
 
   return (
