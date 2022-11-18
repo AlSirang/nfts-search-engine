@@ -35,6 +35,17 @@ img.icon {
 .btn-primary {
   background: #0284c7;
 }
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-outline-primary:hover {
   background: #0369a1;
+  color: #fff;
+}
+
+.btn-outline-primary {
+  border-color: #0284c7;
+  color: #0284c7;
+}
+
+.btn-outline-primary:hover {
+  border-color: #0369a1;
 }

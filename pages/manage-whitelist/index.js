@@ -1,28 +1,17 @@
-import { useEffect, useRef } from "react";
-import Router from "next/router";
+import { DashboardNav } from "../../components/DashboardNav";
+import { AuthLayout } from "../../components/AuthLayout";
 import { getAppCookies } from "../../middlewares/utils";
 import { checkTokenAPI } from "../../services/auth";
-import Link from "next/link";
 
 export default function Index(props) {
-  const onUnAuthorized = () => {
-    Router.push("/manage-whitelist/auth");
-  };
-
-  const isComponentMounted = useRef(false);
-
   const { isAuthenticated } = props;
-  useEffect(() => {
-    if (isComponentMounted.current) return;
-    isComponentMounted.current = true;
-    !isAuthenticated && onUnAuthorized();
-  }, [isAuthenticated]);
-  return (
-    <section className="body-box">
-      <h2>welcome</h2>
 
-      <Link href="/manage-whitelist/add-contract">Add Contract</Link>
-    </section>
+  return (
+    <AuthLayout isAuthenticated={isAuthenticated}>
+      <section className="body-box">
+        <DashboardNav />
+      </section>
+    </AuthLayout>
   );
 }
 

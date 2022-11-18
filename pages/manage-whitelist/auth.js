@@ -1,20 +1,14 @@
-import { useEffect, useRef } from "react";
-import Router from "next/router";
 import Cookies from "js-cookie";
+import { AuthLayout } from "../../components/AuthLayout";
 import { Web3UserContext } from "../../context";
 import { getAppCookies } from "../../middlewares/utils";
 import { checkTokenAPI, getSignInAPI } from "../../services/auth";
-
 import metamaskIcon from "../../assets/images/metamask-icon.svg";
 
 export default function Index(props) {
   const {
     contextState: { isWalletConnected, web3Instance, account, web3Modal, Web3 },
   } = Web3UserContext();
-
-  const onAuthSuccess = () => {
-    Router.push("/manage-whitelist");
-  };
 
   //  get signature and verify if the requesting user is authorized
   const onWalletConnect = async () => {
@@ -59,35 +53,31 @@ export default function Index(props) {
       onAuthSuccess();
     } catch (err) {}
   };
-  const isComponentMounted = useRef(false);
+
   const { isAuthenticated } = props;
 
-  useEffect(() => {
-    if (isComponentMounted.current) return;
-    isComponentMounted.current = true;
-    isAuthenticated && onAuthSuccess();
-  }, [isAuthenticated]);
-
   return (
-    <section className="body-box">
-      <div className="d-flex justify-content-center">
-        <div>
-          <h2>Connect Wallet to manage whitelist</h2>
+    <AuthLayout isAuthenticated={isAuthenticated}>
+      <section className="body-box">
+        <div className="d-flex justify-content-center">
+          <div>
+            <h2>Connect Wallet to manage whitelist</h2>
 
-          <div className="w-75 m-auto mt-5">
-            <button
-              className="btn btn-primary button-round w-100 "
-              onClick={onWalletConnect}
-            >
-              <picture>
-                <img {...metamaskIcon} alt="metamask" className="icon" />
-              </picture>
-              Sign In
-            </button>
+            <div className="w-75 m-auto mt-5">
+              <button
+                className="btn btn-primary button-round w-100 "
+                onClick={onWalletConnect}
+              >
+                <picture>
+                  <img {...metamaskIcon} alt="metamask" className="icon" />
+                </picture>
+                Sign In
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </AuthLayout>
   );
 }
 
