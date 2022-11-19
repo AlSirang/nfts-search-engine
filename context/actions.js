@@ -22,26 +22,29 @@ export default function actions(state, dispatch = () => {}) {
    */
   const walletConnect = async () => {
     if (!web3Modal || isWalletConnected) return;
-    const provider = await web3Modal.connect();
-    const web3Instance = new Web3(provider);
-    let account = (await web3Instance.eth.getAccounts())[0];
 
-    if (!account) {
-      await provider.request({
-        method: "eth_requestAccounts",
+    try {
+      const provider = await web3Modal.connect();
+      const web3Instance = new Web3(provider);
+      let account = (await web3Instance.eth.getAccounts())[0];
+
+      if (!account) {
+        await provider.request({
+          method: "eth_requestAccounts",
+        });
+        account = (await web3Instance.eth.getAccounts())[0];
+      }
+
+      dispatch({
+        type: TYPES.UPDATE_STATE,
+        payload: {
+          isWalletConnected: true,
+          account,
+          provider,
+          web3Instance,
+        },
       });
-      account = (await web3Instance.eth.getAccounts())[0];
-    }
-
-    dispatch({
-      type: TYPES.UPDATE_STATE,
-      payload: {
-        isWalletConnected: true,
-        account,
-        provider,
-        web3Instance,
-      },
-    });
+    } catch (err) {}
   };
 
   const disconnectWallet = async () => {
