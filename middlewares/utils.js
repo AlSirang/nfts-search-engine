@@ -30,12 +30,3 @@ export function getAppCookies(req) {
   }
   return parsedItems;
 }
-
-// /**
-//  * @params {none} set action for logout and remove cookie
-//  * @return {function} router function to redirect
-//  */
-// export function setLogout() {
-//   Cookies.remove("token");
-//   Router.push("/");
-// }
