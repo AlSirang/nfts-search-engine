@@ -13,11 +13,11 @@ export const AuthLayout = ({
   isAuthenticated,
   isAuthSuccessCheck = true,
 }) => {
-  const isComponentMounted = useRef(false);
+  const isEffectHookInit = useRef(false);
 
   useEffect(() => {
-    if (isComponentMounted.current) return;
-    isComponentMounted.current = true;
+    if (isEffectHookInit.current) return;
+    isEffectHookInit.current = true;
     isAuthSuccessCheck && isAuthenticated && onAuthSuccess();
 
     !isAuthenticated && onUnAuthorized();
