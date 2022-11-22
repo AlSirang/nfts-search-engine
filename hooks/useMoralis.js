@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { Web3UserContext } from "../context";
+import { getContractsByChainIdAPI } from "../services/auth";
 
 export const useMoralis = (chainId) => {
   const {
     contextState: { account },
   } = Web3UserContext();
 
-  const hasRun = useRef(false);
+  const isEffectHookInit = useRef(false);
 
   const [{ isLoading, success, failure, error, response }, setState] = useState(
     {
@@ -25,34 +25,18 @@ export const useMoralis = (chainId) => {
     }
   );
 
-  const fetchNFTs = async (options) => {
-    const { data } = await axios.request(options);
-
-    return data;
-  };
-
   useEffect(() => {
     account &&
       chainId &&
       (async () => {
-        if (hasRun.current) return;
+        if (isEffectHookInit.current) return;
 
-        hasRun.current = true;
-
-        const options = {
-          method: "GET",
-          url: `https://deep-index.moralis.io/api/v2/${account}/nft`,
-          params: { chain: chainId, format: "decimal", limit: "12" },
-          headers: {
-            accept: "application/json",
-            "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-          },
-        };
+        isEffectHookInit.current = true;
 
         setState((p) => ({ ...p, isLoading: true }));
 
         try {
-          const data = await fetchNFTs(options);
+          const { data } = await getContractsByChainIdAPI(chainId, account);
 
           setState((p) => ({
             ...p,
@@ -72,19 +56,10 @@ export const useMoralis = (chainId) => {
   }, [account, chainId]);
 
   const onCursor = async (cursor) => {
-    const options = {
-      method: "GET",
-      url: `https://deep-index.moralis.io/api/v2/${account}/nft`,
-      params: { chain: chainId, format: "decimal", limit: "12", cursor },
-      headers: {
-        accept: "application/json",
-        "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-      },
-    };
     setState((p) => ({ ...p, isLoading: true }));
 
     try {
-      const data = await fetchNFTs(options);
+      const { data } = await getContractsByChainIdAPI(chainId, account, cursor);
 
       setState((prev) => {
         const { response: _response } = prev;
@@ -99,7 +74,6 @@ export const useMoralis = (chainId) => {
           ...prev,
           isLoading: false,
           success: true,
-
           response: payload,
         };
       });

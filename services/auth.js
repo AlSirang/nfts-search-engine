@@ -25,3 +25,13 @@ export const getContractsAPI = async (page = 0) => {
     params: { page },
   });
 };
+
+export const getContractsByChainIdAPI = async (
+  chainId,
+  account,
+  cursor = null
+) => {
+  return await axios.get(`${APIs_BASE_URL}/api/get-contracts-by-chainId`, {
+    params: { chainId, account, cursor },
+  });
+};
