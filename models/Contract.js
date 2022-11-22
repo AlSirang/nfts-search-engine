@@ -6,8 +6,8 @@ const ContractSchema = new Schema({
     type: String,
     required: true,
   },
-  chainId: {
-    type: String,
+  deployedChainIds: {
+    type: [String],
     required: true,
   },
 });
