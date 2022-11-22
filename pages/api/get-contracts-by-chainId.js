@@ -11,8 +11,7 @@ export default withMongoose(
     onNoMatch,
   }).get(async (req, res, next) => {
     try {
-      const { chainId, cursor } = req.query;
-      let account = "0x1ec5858f161fa17f148626abcfac12381f97d34b";
+      const { chainId, cursor, account } = req.query;
       if (!chainId || !account)
         return next(
           createHttpError(400, "params account or chainId not specified")
