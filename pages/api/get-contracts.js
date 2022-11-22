@@ -12,16 +12,16 @@ export default withMongoose(
     .use(authenticate)
     .get(async (req, res, next) => {
       const limit = Math.abs(req.query.limit) || 10;
-      const totalPages = await Contract.countDocuments();
+      const totalPages = (await Contract.countDocuments()) / limit;
       const requestedPage = (Math.abs(req.query.page) || 1) - 1;
       const page = requestedPage <= totalPages ? requestedPage : totalPages;
 
       try {
-        const results = await Contract.find()
+        const contractsInfo = await Contract.find()
           .limit(limit)
           .skip(limit * page);
 
-        res.status(200).json(results);
+        res.status(200).json({ contractsInfo, limit, page, totalPages });
       } catch (err) {
         next(err);
       }
