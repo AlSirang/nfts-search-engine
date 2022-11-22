@@ -49,3 +49,7 @@ img.icon {
 .btn-outline-primary:hover {
   border-color: #0369a1;
 }
+
+.alert-round {
+  border-radius: 250px;
+}
