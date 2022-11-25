@@ -63,15 +63,7 @@ export default function Page({ nftInfo, isInfoLoaded, reason }) {
     try {
       await new Promise((resolve, reject) => {
         contractInstance.methods
-          .sendFrom(
-            account,
-            dstChainId,
-            account,
-            tokenId,
-            account,
-            account,
-            "0x"
-          )
+          .traverseChains(dstChainId, tokenId)
           .send({
             from: account,
             value: web3Instance.utils.toWei(payable.toString(), "ether"),
