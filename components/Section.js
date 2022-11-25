@@ -49,36 +49,35 @@ export default React.memo(function Section({ chainId, chainName }) {
     contextState: { isWalletConnected },
   } = Web3UserContext();
 
+  const hasInfo = success && response.result.length;
   return (
     <section className="body-box">
       {isWalletConnected && (
         <>
-          <div className="products-big-start">
-            <div className="products-start">
-              <div className="product-big-title-box">
-                <h2 className="product-big-title">{chainName}</h2>
-              </div>
-
-              {renderCards(response, chainId)}
-              {!isLoading && failure && <p>{error.message || error}</p>}
-              {isLoading && <h3>Loading...</h3>}
-
-              {!isLoading && success && !response.result.length && (
-                <h4>No NFTs found on {chainName}</h4>
-              )}
-
-              {cursor && !isLoading && (
-                <div className="d-flex justify-content-center mt-5 ">
-                  <button
-                    onClick={onCursor.bind(this, cursor)}
-                    className="example-btn"
-                  >
-                    Load more
-                  </button>
+          {Boolean(hasInfo) && (
+            <div className="products-big-start">
+              <div className="products-start">
+                <div className="product-big-title-box">
+                  <h2 className="product-big-title">{chainName}</h2>
                 </div>
-              )}
+
+                {renderCards(response, chainId)}
+                {!isLoading && failure && <p>{error.message || error}</p>}
+                {isLoading && <h3>Loading...</h3>}
+
+                {cursor && !isLoading && (
+                  <div className="d-flex justify-content-center mt-5 ">
+                    <button
+                      onClick={onCursor.bind(this, cursor)}
+                      className="example-btn"
+                    >
+                      Load more
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
     </section>
