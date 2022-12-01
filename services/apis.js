@@ -35,3 +35,29 @@ export const getContractsByChainIdAPI = async (
     params: { chainId, account, cursor },
   });
 };
+
+export const getContractInfoByAddressAPI = async (accessToken, address) => {
+  return await axios.get(`${APIs_BASE_URL}/api/get-contract-info-by-address`, {
+    params: {
+      address,
+    },
+    headers: accessToken
+      ? { cookie: `dynaswapToken=${accessToken}` }
+      : undefined,
+  });
+};
+
+export const updateContractInfoByAddressAPI = async (payload) => {
+  return await axios.post(
+    `${APIs_BASE_URL}/api/update-contract-by-address`,
+    payload
+  );
+};
+export const deleteContractInfoByAddressAPI = async (address) => {
+  return await axios.delete(
+    `${APIs_BASE_URL}/api/remove-contract-info-by-address`,
+    {
+      params: { address },
+    }
+  );
+};
