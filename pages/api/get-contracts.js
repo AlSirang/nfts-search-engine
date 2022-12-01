@@ -18,6 +18,7 @@ export default withMongoose(
 
       try {
         const contractsInfo = await Contract.find()
+          .sort({ _id: "desc" })
           .limit(limit)
           .skip(limit * page);
 
