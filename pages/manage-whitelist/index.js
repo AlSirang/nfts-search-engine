@@ -1,7 +1,7 @@
 import { DashboardNav } from "../../components/DashboardNav";
 import { AuthLayout } from "../../components/AuthLayout";
 import { getAppCookies } from "../../middlewares/utils";
-import { checkTokenAPI, getContractsAPI } from "../../services/auth";
+import { checkTokenAPI, getContractsAPI } from "../../services/apis";
 import { useEffect, useRef, useState } from "react";
 import ContractInfoCard from "../../components/ContractInfoCard";
 

@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { AuthLayout, onAuthSuccess } from "../../components/AuthLayout";
 import { Web3UserContext } from "../../context";
 import { getAppCookies } from "../../middlewares/utils";
-import { checkTokenAPI, getSignInAPI } from "../../services/auth";
+import { checkTokenAPI, getSignInAPI } from "../../services/apis";
 import metamaskIcon from "../../assets/images/metamask-icon.svg";
 
 export default function Index(props) {

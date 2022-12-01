@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Web3UserContext } from "../context";
-import { getContractsByChainIdAPI } from "../services/auth";
+import { getContractsByChainIdAPI } from "../services/apis";
 
 export const useMoralis = (chainId) => {
   const {

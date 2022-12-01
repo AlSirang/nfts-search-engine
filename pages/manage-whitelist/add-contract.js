@@ -5,7 +5,7 @@ import Alert from "../../components/Alert";
 import { AuthLayout } from "../../components/AuthLayout";
 import { DashboardNav } from "../../components/DashboardNav";
 import { getAppCookies } from "../../middlewares/utils";
-import { addContractAPI, checkTokenAPI } from "../../services/auth";
+import { addContractAPI, checkTokenAPI } from "../../services/apis";
 import { chainConfigs } from "../../utils/chainConfigs";
 
 export default function Index(props) {
