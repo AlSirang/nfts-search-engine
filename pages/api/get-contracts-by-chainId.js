@@ -31,12 +31,11 @@ export default withMongoose(
 
       let token_addresses = "";
       contractsInfo.forEach(({ address }, index) => {
-        if (index === 0) return (token_addresses += address);
-        token_addresses += `&=${address}`;
+        token_addresses += `&token_addresses=${address}`;
       });
 
       const paramCursor = cursor ? `&cursor=${cursor}` : "";
-      const url = `https://deep-index.moralis.io/api/v2/${account}/nft?chain=${chainId}&format=decimal&limit=12&token_addresses=${token_addresses}${paramCursor}`;
+      const url = `https://deep-index.moralis.io/api/v2/${account}/nft?chain=${chainId}&format=decimal&limit=12${token_addresses}${paramCursor}`;
 
       const options = {
         method: "GET",
