@@ -52,6 +52,15 @@ Create a new project on [moralis.io](https://moralis.io). ON successful creation
 NEXT_PUBLIC_MORALIS_API_KEY="<YOUR_MORALIS_API_KEY>"
 ```
 
+## APIs url configuration
+Update APIs url in [constants.js](./utils/constants.js).
+```JavaScript
+export const APIs_BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "<BASE_URL_OF_YOUR_WEBSITE"
+    : "http://localhost:3000";
+```
+
 ## Deployment
 
 [vercel.com](https://vercel.com/) can be used to deploy the project.
